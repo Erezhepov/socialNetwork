@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.css": "/Erezhepov/socialNetwork/static/css/main.1981bed0.css",
-    "main.js": "/Erezhepov/socialNetwork/static/js/main.c626802a.js",
-    "index.html": "/Erezhepov/socialNetwork/index.html",
-    "main.1981bed0.css.map": "/Erezhepov/socialNetwork/static/css/main.1981bed0.css.map",
-    "main.c626802a.js.map": "/Erezhepov/socialNetwork/static/js/main.c626802a.js.map"
+    "main.css": "/socialNetwork/static/css/main.1981bed0.css",
+    "main.js": "/socialNetwork/static/js/main.c626802a.js",
+    "index.html": "/socialNetwork/index.html",
+    "main.1981bed0.css.map": "/socialNetwork/static/css/main.1981bed0.css.map",
+    "main.c626802a.js.map": "/socialNetwork/static/js/main.c626802a.js.map"
   },
   "entrypoints": [
     "static/css/main.1981bed0.css",
