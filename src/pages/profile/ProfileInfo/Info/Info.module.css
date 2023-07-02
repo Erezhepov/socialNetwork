@@ -1,0 +1,15 @@
+.info .item + .item{
+    margin-top: .2em;
+}
+.info span{
+    color: #6A2C91;
+    font-weight: 500;
+}
+.info strong{
+    font-weight: 500;
+    color: #000000;
+}
+.info .description{
+    font-weight: 700;
+    color: rgb(180, 211, 53) ;
+}

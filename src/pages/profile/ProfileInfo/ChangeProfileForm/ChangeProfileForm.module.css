@@ -1,0 +1,29 @@
+.inputs .input + .input{
+    margin-top: 1em;
+}
+.input input[type='checkbox']{
+    width: 20px;
+    height: 20px;
+}
+.input label{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.input .labelCheckbox{
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+.input input{
+    margin-top: 3px;
+}
+.input input[type='submit']{
+    border-radius: .5em;
+    padding: 10px 24px;
+    font-weight: 500;
+    background-color: #6A2C91;
+    border: none;
+    color: #FFFFFF;
+    height: auto;
+}

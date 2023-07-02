@@ -1,0 +1,26 @@
+.header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 1em;
+}
+.header a{
+    height: auto;
+    color: #FFFFFF;
+}
+.btn{
+    background-color: #FFFFFF;
+    color: #6A2C91;
+    font-weight: 700;
+    border: 1px solid #6A2C91;
+}
+.btn:hover{
+    background-color: #4B1E68;
+    color: #FFFFFF;
+    border: 1px solid #FFFFFF;
+}
+.successAuthedItem{
+    display: flex;
+    column-gap: 1em;
+    align-items: center;
+}

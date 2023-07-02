@@ -1,0 +1,10 @@
+.form > div + div{
+    margin-top: 1em;
+}
+.btn{
+    margin-top: 2em;
+}
+.checkbox{
+    width: 16px;
+    height: 16px;
+}
