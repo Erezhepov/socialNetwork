@@ -33,8 +33,8 @@ const AuthPage = () => {
             <h2>Sign in:</h2>
             {authState.error && <div className={'error-text'}>{authState.error}</div>}
                 <form onSubmit={auth} className={s.form} action="">
-                    <InputItem getValue={getEmail} placeholder={'Email'} type={'email'}/>
-                    <InputItem getValue={getPassword} placeholder={'Password'} type={'password'}/>
+                    <InputItem required={true} getValue={getEmail} placeholder={'Email'} type={'email'}/>
+                    <InputItem required={true} getValue={getPassword} placeholder={'Password'} type={'password'}/>
                     <div>
                         <span>Remember me</span><input onClick={rememberFn} className={s.checkbox} type={'checkbox'} />
                     </div>

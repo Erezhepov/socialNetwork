@@ -1,3 +1,7 @@
+.inputs{
+    max-height: 500px;
+    overflow-y: auto;
+}
 .inputs .input + .input{
     margin-top: 1em;
 }
@@ -16,7 +20,15 @@
     align-items: center;
 }
 .input input{
-    margin-top: 3px;
+    margin-top: 4px;
+}
+.input input{
+    border: 1px solid black;
+}
+.input label{
+    display: flex;
+    flex-direction: column;
+    row-gap: 2px;
 }
 .input input[type='submit']{
     border-radius: .5em;
@@ -26,4 +38,11 @@
     border: none;
     color: #FFFFFF;
     height: auto;
+}
+.inputRow{
+    display: flex;
+    column-gap: 1em;
+    flex-direction: row !important;
+    justify-content: start !important;
+    align-items: center !important;
 }

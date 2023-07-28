@@ -13,15 +13,11 @@ interface IStatus {
 const Status = ({textStatus, id, userId}: IStatus) => {
     const dispatch: Dispatch<any> = useDispatch()
     const [status, setStatus] = useState<boolean>(false)
-    const [statusText, setStatusText] = useState<string>(textStatus)
+    const [statusText, setStatusText] = useState(textStatus)
     useMemo(() => {
         setStatusText(textStatus)
     }, [textStatus])
-    const changeStatus = () => {
-        if (id === userId){
-            setStatus(true)
-        }
-    }
+    const changeStatus = () => id === userId && setStatus(true)
     const saveStatus = () => {
         setStatus(false)
         setStatusText(statusText)

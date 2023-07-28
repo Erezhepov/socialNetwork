@@ -1,27 +1,25 @@
 import React, {useEffect} from 'react';
 import s from './Profile.module.css'
 import {useDispatch} from "react-redux";
-import {GetStatusAC, ProfileAC} from "../../store/actionCreators/profileAC";
+import {profileAC} from "../../store/actionCreators/profileAC";
 import {useTypedSelector} from "../../hooks/useTypedSelector";
 import {useParams} from "react-router-dom";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import {useNavigate} from "react-router-dom";
 import {Dispatch} from "redux";
 
-const ProfilePage = () => {
+const ProfilePage: React.FC = () => {
     const dispatch: Dispatch<any> = useDispatch()
     const authState = useTypedSelector(state => state.auth)
     const state = useTypedSelector(state => state.profile)
     const {userId} = useParams()
     const navigate = useNavigate()
     useEffect(() => {
-        if(authState.userId){
+        if (authState.isAuth || authState.userId){
             if (Number(userId)){
-                dispatch(ProfileAC(Number(userId)))
-                dispatch(GetStatusAC(Number(userId)))
+                dispatch(profileAC(Number(userId)))
             }else{
-                dispatch(ProfileAC(Number(authState.userId)))
-                dispatch(GetStatusAC(Number(authState.userId)))
+                dispatch(profileAC(Number(authState.userId)))
                 navigate('/profile/' + authState.userId)
             }
         }

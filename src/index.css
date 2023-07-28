@@ -7,6 +7,9 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+*{
+  box-sizing: border-box;
+}
 a, button{
   transition: all .3s;
   cursor: pointer;
@@ -17,11 +20,10 @@ ul, li{
   padding: 0;
   list-style-type: none;
 }
-a{
-  opacity: .8;
+a.link{
   transition: opacity .2s;
 }
-a:hover{
+a.link:hover{
   opacity: 1;
   transition: opacity .2s;
 }
@@ -35,35 +37,34 @@ input{
   height: 30px;
 }
 .wrapper{
+  background-color: #F7F9FB;
   font-size: 17px;
   line-height: 1.3;
-  display: grid;
-  grid-template-areas:
-        'h h'
-        'n c';
-  grid-template-rows: 84px 1fr;
-  grid-template-columns: 2fr 10fr;
-  max-width: 1200px;
-  margin: 0 auto;
-  min-height: 90vh;
+}
+.mainContainer{
+  display: flex !important;
+  min-height: 80vh;
 }
 header{
   color: #FFF;
-  grid-area: h;
   background-color: #6A2C91;
 }
 nav{
+  width: 220px;
   margin-top: 1em;
   color: #FFF;
   background-color: #6A2C91;
-  grid-area: n;
   padding: 20px 15px;
 }
 .content{
-  padding: 0 15px 20px;
+  border: 2px solid #6a2c91;
+  border-radius: 10px;
+  padding: 15px;
   margin-top: 1em;
   margin-left: 1em;
   grid-area: c;
+  width: 80%;
+  overflow-x: initial;
 }
 button{
   border-radius: .5em;
@@ -73,10 +74,13 @@ button{
   border: none;
   color: #FFFFFF;
 }
+button[disabled] {
+  cursor: initial !important;
+}
 .pagination{
+  margin: 1em 0;
   display: flex;
   column-gap: 1em;
-  margin-top: 2em;
 }
 .logo{
   width: 70px;
@@ -94,4 +98,7 @@ button{
   color: red;
   font-size: 14px;
   font-weight: 500;
+}
+.loading{
+  width: 3em;
 }

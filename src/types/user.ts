@@ -5,6 +5,8 @@ export const FETCH_USER_PAGE = 'FETCH_USER_PAGE'
 export const FETCH_USER_TOTAL_COUNT = 'FETCH_USER_TOTAL_COUNT'
 export const FOLLOW_USER = 'FOLLOW_USER'
 export const UNFOLLOW_USER = 'UNFOLLOW_USER'
+export const FIND_USERS = 'FIND_USERS'
+export const FILTER_USERS = 'FILTER_USERS'
 
 export interface IUserState {
     users: IUser[]
@@ -12,6 +14,9 @@ export interface IUserState {
     error: null | string
     page: number
     totalCount: number
+    filter: {
+        term: null | string
+    }
 }
 export interface IUser {
     id: number
@@ -50,6 +55,15 @@ interface IUserTotalCountAction {
     type: typeof FETCH_USER_TOTAL_COUNT
     payload: number
 }
+export interface IFindUserAction {
+    type: typeof FIND_USERS
+    payload: string
+}
+
+export interface IFilterUsers {
+    type: typeof FILTER_USERS
+    payload: string
+}
 
 export type TUserAction = IFetchUserAction
     | IFetchUserSuccessAction
@@ -58,3 +72,5 @@ export type TUserAction = IFetchUserAction
     | IUserTotalCountAction
     | IFollow
     | IUnfollow
+    | IFindUserAction
+    | IFilterUsers

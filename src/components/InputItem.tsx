@@ -4,6 +4,7 @@ interface IInputItem {
     type: string
     placeholder: string
     getValue: (value: string) => void
+    required: boolean
 }
 
 const InputItem = (props: IInputItem) => {
@@ -23,7 +24,7 @@ const InputItem = (props: IInputItem) => {
     return (
         <div>
             <input onBlur={setChangedValue} value={value} onChange={changeValue} placeholder={props.placeholder} type={props.type}/>
-            {error && <div className='error-text'>This field must be required</div>}
+            {props.required && error && <div className='error-text'>This field must be required</div>}
         </div>
     );
 };

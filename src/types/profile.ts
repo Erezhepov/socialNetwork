@@ -1,4 +1,3 @@
-export const PROFILE_STATUS = 'PROFILE_STATUS'
 export const PROFILE_LOADING = 'PROFILE_LOADING'
 export const PROFILE_ERROR = 'PROFILE_ERROR'
 export const PROFILE_DATA = 'PROFILE_DATA'
@@ -9,7 +8,6 @@ export const PUT_PROFILE_PHOTO = 'PUT_PROFILE_PHOTO'
 
 export interface IProfileState {
     status: string
-    photo: string
     loading: boolean
     error: null | string
     aboutMe: string
@@ -21,7 +19,14 @@ export interface IProfileState {
     userId: number | null
     lookingForAJob: boolean
     lookingForAJobDescription: null | string
-
+    contacts: {
+        github: string | null
+        instagram: string | null
+        vk: string | null
+        facebook: string | null
+        youtube: string | null
+        website: string | null
+    }
 }
 export interface IGetStatus {
     type: typeof GET_STATUS
@@ -32,10 +37,6 @@ export interface IPutProfileData {
 }
 export interface IPutStatus {
     type: typeof PUT_STATUS
-}
-export interface IProfileStatus {
-    type: typeof PROFILE_STATUS
-    payload: string
 }
 export interface IProfileError {
     type: typeof PROFILE_ERROR
@@ -63,7 +64,15 @@ export interface IProfileData {
         }
         lookingForAJob: boolean
         lookingForAJobDescription: null | string
+        contacts: {
+            github: string | null
+            instagram: string | null
+            vk: string | null
+            facebook: string | null
+            youtube: string | null
+            website: string | null
+        }
     }
 }
-export type TProfileAction = IProfileStatus | IProfileData | IProfileError
+export type TProfileAction = IProfileData | IProfileError
     | IProfileLoading | IGetStatus | IPutStatus | IPutProfileData | IProfilePhoto

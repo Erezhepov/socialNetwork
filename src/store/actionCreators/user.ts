@@ -2,62 +2,87 @@ import {
     FETCH_USER,
     FETCH_USER_ERROR, FETCH_USER_PAGE,
     FETCH_USER_SUCCESS,
-    FETCH_USER_TOTAL_COUNT, FOLLOW_USER,
-    IFetchUserPageAction,
+    FETCH_USER_TOTAL_COUNT, FILTER_USERS, FOLLOW_USER,
+    IFetchUserPageAction, IUser,
     TUserAction, UNFOLLOW_USER
 } from "../../types/user";
-import axios from "axios";
 import {Dispatch} from "redux";
+import {instance} from "../../api/api";
+import {FriendsAC} from "./friendsAC";
+
+export interface IFetchUsers {
+    error: null | string
+    items: IUser[]
+    totalCount: number
+}
+export enum ResultCodeEnum {
+    success = 0,
+    error = 1
+}
+export interface IFetch {
+    data: Object
+    fieldsErrors: string[]
+    messages: string[]
+    resultCode: ResultCodeEnum
+}
 
 export const fetchUsers = (page: number=1, count: number=20) => {
     return async (dispatch: Dispatch<TUserAction>) => {
         try {
             dispatch({type: FETCH_USER})
-            const response = await axios.get('https://social-network.samuraijs.com/api/1.0/users', {
+            const response = await instance.get('users', {
                 params: {
                     page: page,
                     count: count
                 },
-                withCredentials: true,
-                headers: {'API-KEY': 'e6a8a7ef-5858-4ade-a6e6-925e2ca655c7'}
-
             })
-            if (!response.data.resultCode){
-                dispatch({type: FETCH_USER_SUCCESS, payload: response.data.items})
-                dispatch({type: FETCH_USER_TOTAL_COUNT, payload: response.data.totalCount})
-            }
+            const data: IFetchUsers = response.data
+            dispatch({type: FETCH_USER_SUCCESS, payload: data.items})
+            dispatch({type: FETCH_USER_TOTAL_COUNT, payload: data.totalCount})
         } catch (e){
             dispatch({type: FETCH_USER_ERROR, payload: 'Ошибка при доставании юзеров'})
         }
     }
 }
-
+export const fetchFindUsers = (term: string) => {
+    return async (dispatch: Dispatch<TUserAction>) => {
+        try {
+            dispatch({type: FETCH_USER})
+            const response = await instance.get(`users?term=${term}`, {
+                params: {
+                    term: term
+                },
+            })
+            const data: IFetchUsers = response.data
+            dispatch({type: FETCH_USER_SUCCESS, payload: data.items})
+            dispatch({type: FETCH_USER_TOTAL_COUNT, payload: data.totalCount})
+            dispatch({type: FILTER_USERS, payload: term})
+        } catch (e){
+            dispatch({type: FETCH_USER_ERROR, payload: 'Ошибка при доставании юзеров'})
+        }
+    }
+}
 export const fetchFollow = (userId: number) => {
     return async (dispatch: Dispatch<TUserAction>) => {
         try {
             dispatch({type: FETCH_USER})
-            const response = await axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${userId}`, {}, {
-                withCredentials: true,
-                headers: {'API-KEY': 'e6a8a7ef-5858-4ade-a6e6-925e2ca655c7'}
-            })
-            if (!response.data.resultCode){
-                dispatch({type: FOLLOW_USER, payload: userId})
-            }
+            const response = await instance.post(`follow/${userId}`)
+            const data: IFetch = response.data
+            if (data.resultCode === ResultCodeEnum.success) dispatch({type: FOLLOW_USER, payload: userId})
         }catch (e){
             dispatch({type: FETCH_USER_ERROR, payload: 'Ошибка при подписки на пользователя'})
         }
     }
 }
 export const fetchUnfollow = (userId: number) => {
-    return async (dispatch: Dispatch<TUserAction>) => {
+    return async (dispatch: Dispatch<TUserAction | any>) => {
         try {
             dispatch({type: FETCH_USER})
-            const response = await axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${userId}`,{
-                withCredentials: true,
-                headers: {'API-KEY': 'e6a8a7ef-5858-4ade-a6e6-925e2ca655c7'}
-            })
-            if (!response.data.resultCode){
+            const response = await instance.delete(`follow/${userId}`)
+            const data: IFetch = response.data
+            if (data.resultCode === ResultCodeEnum.success){
                 dispatch({type: UNFOLLOW_USER, payload: userId})
+                dispatch(FriendsAC(true))
             }
         }catch (e){
             dispatch({type: FETCH_USER_ERROR, payload: 'Ошибка при отписки на пользователя'})
@@ -65,6 +90,4 @@ export const fetchUnfollow = (userId: number) => {
     }
 }
 
-export const ActionUsersPage = (page: number): IFetchUserPageAction => {
-    return {type: FETCH_USER_PAGE, payload: page}
-}
+export const ActionUsersPage = (page: number): IFetchUserPageAction => {return {type: FETCH_USER_PAGE, payload: page}}

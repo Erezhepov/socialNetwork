@@ -1,0 +1,10 @@
+.searchInput{
+    display: flex;
+    column-gap: 1em;
+}
+.btn{
+    opacity: .82;
+}
+.btn:hover{
+    opacity: 1;
+}

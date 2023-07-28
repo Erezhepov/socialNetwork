@@ -3,17 +3,23 @@ import {
     FETCH_USER_ERROR,
     FETCH_USER_PAGE,
     FETCH_USER_SUCCESS,
-    FETCH_USER_TOTAL_COUNT, FOLLOW_USER,
+    FETCH_USER_TOTAL_COUNT,
+    FILTER_USERS,
+    FOLLOW_USER,
     IUserState,
-    TUserAction, UNFOLLOW_USER
+    TUserAction,
+    UNFOLLOW_USER
 } from "../../types/user";
 
-const initialState: IUserState = {
+let initialState: IUserState = {
     users: [],
     loading: false,
     error: null,
     totalCount: 0,
     page: 1,
+    filter: {
+        term: ''
+    }
 }
 
 
@@ -40,8 +46,9 @@ export const UserReducer = (state = initialState, action: TUserAction): IUserSta
                 if (user.id === action.payload) return {...user, followed: false}
                 return user
             })
-
             return {...state, loading: false, error: null, users: newUsers}
+        case FILTER_USERS:
+            return {...state, filter: {...state.filter, term: action.payload}}
         default: return state
     }
 }

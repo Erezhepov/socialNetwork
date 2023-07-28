@@ -1,18 +1,23 @@
 import React from 'react';
 import s from "./Info.module.css";
+import {TextInfo} from './TextInfo';
 
 const Info = ({state}: any) => {
     return (
         <div className={s.info}>
-            <div className={s.item}>
-                {state.aboutMe && <span className={s.age}><strong>About me:</strong> {state.aboutMe}</span>}
-            </div>
+            <TextInfo value={state.aboutMe} text={'About me:'} />
             <div className={s.item}>
                 <span><strong>Looking for job:</strong> {state.lookingForAJob ? 'Yes' : 'No'}</span>
             </div>
             <div className={s.item}>
-                {state.lookingForAJob && <div className={s.description}><span className={s.description}>{state.lookingForAJobDescription}</span></div>}
+                {state.lookingForAJob && <div className={s.description}><span className={s.description}><b>Description:</b> {state.lookingForAJobDescription}</span></div>}
             </div>
+            {state.contacts && (
+                <div className={s.contacts}>
+                    <h2>Contacts: </h2>
+                    <TextInfo value={state.contacts.github} text={'Github:'} />
+                </div>
+            )}
         </div>
     );
 };

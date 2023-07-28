@@ -6,6 +6,9 @@ import ChangeProfileForm from "./ChangeProfileForm/ChangeProfileForm";
 import Info from "./Info/Info";
 import ChangePhoto from "../../../components/profile/ChangePhoto/ChangePhoto";
 import {Dispatch} from "redux";
+import Button from '@mui/material/Button';
+import {Menu, MenuItem} from "@mui/material";
+import ModalMUI from "../../../components/ModalMUI";
 
 interface IProfileInfo {
     state: any
@@ -20,20 +23,37 @@ const ProfileInfo = ({state, authId, userId, dispatch}: IProfileInfo) => {
     const closeModal = () => setModal(false)
     const [isViewPhoto, setIsViewPhoto] = useState<boolean>(false)
     const [isChangePhoto, setIsChangePhoto] = useState<boolean>(false)
-    const viewPhoto = () => setIsViewPhoto(true)
+    const viewPhoto = () => {
+        handleClose()
+        setIsViewPhoto(true)
+    }
     const closeViewPhoto = () => setIsViewPhoto(false)
     const closeChangePhoto = () => setIsChangePhoto(false)
-    const changePhoto = () => setIsChangePhoto(true)
+    const changePhoto = () => {
+        handleClose()
+        setIsChangePhoto(true)
+    }
+
+    const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+    const open = Boolean(anchorEl);
+    const handleClick = (event: any) => {
+        setAnchorEl(event.currentTarget);
+    };
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
+
     return (
         <div className={s.profileInfo}>
             <div className={s.profileImg}>
-                <div className={s.avatar}>
-                    <img src={state.photos.large || 'https://img.freepik.com/free-icon/user_318-159711.jpg'} alt=""/>
+                <div title={'click'} className={s.avatar}>
+                    <img onClick={handleClick} src={state.photos.large || 'https://img.freepik.com/free-icon/user_318-159711.jpg'} alt=""/>
                         <div className={s.dropdown}>
-                            <ul>
-                                <li onClick={viewPhoto}>View photo</li>
-                                {authId === Number(userId) ? <li onClick={changePhoto}>Change photo</li> : <></>}
-                            </ul>
+                            <Menu id="basic-menu" anchorEl={anchorEl} open={open} onClose={handleClose}
+                                MenuListProps={{'aria-labelledby': 'basic-button',}}>
+                                <MenuItem onClick={viewPhoto}>View photo</MenuItem>
+                                {authId === Number(userId) ? <MenuItem onClick={changePhoto}>Change photo</MenuItem> : <></> }
+                            </Menu>
                         </div>
                 </div>
             </div>
@@ -45,13 +65,13 @@ const ProfileInfo = ({state, authId, userId, dispatch}: IProfileInfo) => {
             </Modal>}
             <div className={s.profileTexts}>
                 <div className={s.name}><span>{state.fullName || 'Unknown'}</span></div>
-                <Status id={authId} userId={Number(userId)} textStatus={state.status} />
+                {state.status && <Status id={authId} userId={Number(userId)} textStatus={state.status} />}
                 <Info state={state} />
-                {authId === Number(userId) && <button onClick={openModal}>Change Profile</button>}
-                {modal && <Modal closeModal={closeModal} title={'Change Profile:'}>
-                    <ChangeProfileForm dispatch={dispatch} closeModal={closeModal} authId={authId} />
-                </Modal>}
+                {authId === Number(userId) && <Button variant={'contained'} onClick={openModal}>Change Profile</Button>}
             </div>
+            {modal && <ModalMUI closeModal={closeModal} handleBtn={modal}>
+                <ChangeProfileForm closeModal={closeModal} dispatch={dispatch} authId={authId}/>
+            </ModalMUI>}
         </div>
     );
 };

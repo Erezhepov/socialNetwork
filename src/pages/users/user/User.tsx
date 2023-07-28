@@ -1,9 +1,9 @@
-import React from 'react';
+import React, {useState} from 'react';
 import s from "../UsersPage.module.css";
 import {Link} from "react-router-dom";
 import {IUser} from "../../../types/user";
 
-interface IUserPage {
+export interface IUserPage {
     user: IUser
     follow: (id: number) => void
     unfollow: (id: number) => void
@@ -22,7 +22,7 @@ const User = (props: IUserPage) => {
                 <div className={s.name}>{props.user.name}</div>
                 <div className={s.status}>{props.user.status}</div>
                 {
-                    props.user.id !== props.authId && props.user.followed ?
+                    props.user.followed ?
                         <button style={{background: 'rgb(180, 211, 53)'}} onClick={() => unfollow(props.user.id)}>Unfollow</button>
                         : props.user.id !== props.authId && <button onClick={() => follow(props.user.id)}>Follow</button>
                 }

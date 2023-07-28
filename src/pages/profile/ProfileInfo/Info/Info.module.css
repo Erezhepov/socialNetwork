@@ -1,6 +1,10 @@
 .info .item + .item{
     margin-top: .2em;
 }
+.info .item b{
+    color: black;
+    font-weight: 500;
+}
 .info span{
     color: #6A2C91;
     font-weight: 500;
@@ -9,7 +13,9 @@
     font-weight: 500;
     color: #000000;
 }
-.info .description{
-    font-weight: 700;
-    color: rgb(180, 211, 53) ;
+.contacts h2{
+    font-weight: 500;
+    font-size: 1.4em;
+    line-height: 1;
+    margin: .7em 0 .4em;
 }

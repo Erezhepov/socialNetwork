@@ -1,0 +1,14 @@
+.item{
+    display: flex;
+    justify-content: space-between;
+}
+.message{
+    padding: 10px;
+    background-color: rgba(0,0,0,.4);
+    width: 88%;
+    word-wrap: break-word;
+}
+.user{
+    word-wrap: break-word;
+    width: 100px;
+}

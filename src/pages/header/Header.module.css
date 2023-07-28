@@ -1,12 +1,14 @@
 .header{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 1em;
+    padding: .4em 1em;
 }
 .header a{
     height: auto;
     color: #FFFFFF;
+}
+.container{
+    display: flex !important;
+    justify-content: space-between;
+    align-items: center;
 }
 .btn{
     background-color: #FFFFFF;
