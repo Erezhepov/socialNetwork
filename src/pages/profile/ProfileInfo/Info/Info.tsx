@@ -16,6 +16,10 @@ const Info = ({state}: any) => {
                 <div className={s.contacts}>
                     <h2>Contacts: </h2>
                     <TextInfo value={state.contacts.github} text={'Github:'} />
+                    <TextInfo value={state.contacts.vk} text={'VK:'} />
+                    <TextInfo value={state.contacts.youtube} text={'Youtube:'} />
+                    <TextInfo value={state.contacts.website} text={'Website:'} />
+                    <TextInfo value={state.contacts.instagram} text={'Instagram:'} />
                 </div>
             )}
         </div>

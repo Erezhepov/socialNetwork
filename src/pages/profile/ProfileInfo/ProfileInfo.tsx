@@ -47,30 +47,36 @@ const ProfileInfo = ({state, authId, userId, dispatch}: IProfileInfo) => {
         <div className={s.profileInfo}>
             <div className={s.profileImg}>
                 <div title={'click'} className={s.avatar}>
-                    <img onClick={handleClick} src={state.photos.large || 'https://img.freepik.com/free-icon/user_318-159711.jpg'} alt=""/>
-                        <div className={s.dropdown}>
-                            <Menu id="basic-menu" anchorEl={anchorEl} open={open} onClose={handleClose}
-                                MenuListProps={{'aria-labelledby': 'basic-button',}}>
-                                <MenuItem onClick={viewPhoto}>View photo</MenuItem>
-                                {authId === Number(userId) ? <MenuItem onClick={changePhoto}>Change photo</MenuItem> : <></> }
-                            </Menu>
-                        </div>
+                    <img onClick={handleClick}
+                         src={state.photos.large || 'https://img.freepik.com/free-icon/user_318-159711.jpg'} alt=""/>
+                    <div className={s.dropdown}>
+                        <Menu id="basic-menu" anchorEl={anchorEl} open={open} onClose={handleClose}
+                              MenuListProps={{'aria-labelledby': 'basic-button',}}>
+                            <MenuItem onClick={viewPhoto}>View photo</MenuItem>
+                            {authId === Number(userId) ?
+                                <MenuItem onClick={changePhoto}>Change photo</MenuItem> : <></>}
+                        </Menu>
+                    </div>
                 </div>
             </div>
             {isViewPhoto && <Modal title={''} closeModal={closeViewPhoto}>
-                <img className={s.largePhoto} src={state.photos?.large || 'https://img.freepik.com/free-icon/user_318-159711.jpg'} alt=""/>
+              <img className={s.largePhoto}
+                   src={state.photos?.large || 'https://img.freepik.com/free-icon/user_318-159711.jpg'} alt=""/>
             </Modal>}
             {isChangePhoto && <Modal title={'Change photo'} closeModal={closeChangePhoto}>
-                <ChangePhoto dispatch={dispatch} closeChangePhoto={closeChangePhoto} />
+              <ChangePhoto dispatch={dispatch} closeChangePhoto={closeChangePhoto}/>
             </Modal>}
             <div className={s.profileTexts}>
                 <div className={s.name}><span>{state.fullName || 'Unknown'}</span></div>
-                {state.status && <Status id={authId} userId={Number(userId)} textStatus={state.status} />}
-                <Info state={state} />
-                {authId === Number(userId) && <Button variant={'contained'} onClick={openModal}>Change Profile</Button>}
+                {state.status && <Status id={authId} userId={Number(userId)} textStatus={state.status}/>}
+                <Info state={state}/>
+                {authId === Number(userId) &&
+                  <Button className={s.changeProfileBtn} style={{background: '#6A2C91'}} variant={'contained'}
+                          onClick={openModal}>Change
+                    Profile</Button>}
             </div>
             {modal && <ModalMUI closeModal={closeModal} handleBtn={modal}>
-                <ChangeProfileForm closeModal={closeModal} dispatch={dispatch} authId={authId}/>
+              <ChangeProfileForm closeModal={closeModal} dispatch={dispatch} authId={authId}/>
             </ModalMUI>}
         </div>
     );

@@ -36,7 +36,7 @@ export const fetchAuth = () => {
             dispatch({type: FETCH_AUTHED_LOADING})
             const response = await instance.get('auth/me')
             const data: IFetchAuth = response.data
-            if (data.resultCode === ResultCodeEnum.success){
+            if (data.resultCode === ResultCodeEnum.success) {
                 dispatch(AFetchAuth({
                     isAuth: !data.resultCode,
                     userId: data.data.id,
@@ -44,7 +44,7 @@ export const fetchAuth = () => {
                     email: data.data.email,
                     login: data.data.login
                 }))
-            }else{
+            } else {
                 dispatch(AFetchAuth({
                     isAuth: !data.resultCode,
                     userId: null,
@@ -53,7 +53,7 @@ export const fetchAuth = () => {
                     login: null
                 }))
             }
-        }catch (e){
+        } catch (e) {
             dispatch({type: FETCH_AUTHED_ERROR, payload: 'Ошибка при доставании из сервера'})
         }
     }
@@ -61,7 +61,7 @@ export const fetchAuth = () => {
 
 export const fetchPostAuth = ({email, password, rememberMe = false}: IPostAuth) => {
     return async (dispatch: Dispatch<TActionAuth | any>) => {
-        try{
+        try {
             const response = await instance.post<IFetchPostAuth>('auth/login', {
                 email: email,
                 password: password,
@@ -69,19 +69,20 @@ export const fetchPostAuth = ({email, password, rememberMe = false}: IPostAuth) 
             })
             const data = response.data
             if (data.resultCode === ResultCodeEnum.success) dispatch(fetchAuth())
-        }catch (e){
+            // if (data.resultCode === ResultCodeEnum.error) dispatch(fetchAuth())
+        } catch (e) {
             dispatch({type: FETCH_AUTHED_ERROR, payload: 'Ошибка при доставании из сервера'})
         }
     }
 }
 export const fetchAuthDelete = () => {
     return async (dispatch: Dispatch<TActionAuth>) => {
-        try{
+        try {
             dispatch({type: FETCH_AUTHED_LOADING})
             const response = await instance.delete('auth/login')
             const data: IFetch = response.data
             if (data.resultCode === ResultCodeEnum.success) dispatch({type: FETCH_AUTHED_DELETE})
-        }catch (e){
+        } catch (e) {
             dispatch({type: FETCH_AUTHED_ERROR, payload: 'Ошибка при удалении'})
         }
     }

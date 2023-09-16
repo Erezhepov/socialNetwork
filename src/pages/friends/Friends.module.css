@@ -1,9 +1,11 @@
-.items{
+.items {
+    margin-top: 1em;
     display: flex;
     flex-wrap: wrap;
     row-gap: 1em;
 }
-.title{
+
+.title {
     margin-top: 0;
     color: #4B1E68;
     font-size: 1.5em;

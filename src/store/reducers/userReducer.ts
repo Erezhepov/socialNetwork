@@ -3,6 +3,7 @@ import {
     FETCH_USER_ERROR,
     FETCH_USER_PAGE,
     FETCH_USER_SUCCESS,
+    FETCH_USER_TERM,
     FETCH_USER_TOTAL_COUNT,
     FILTER_USERS,
     FOLLOW_USER,
@@ -33,6 +34,8 @@ export const UserReducer = (state = initialState, action: TUserAction): IUserSta
             return {...state, users: [], loading: false, error: action.payload}
         case FETCH_USER_PAGE:
             return {...state, loading: false, error: null, page: action.payload}
+        case FETCH_USER_TERM:
+            return {...state, loading: false, error: null, filter: {...state.filter, term: action.payload}}
         case FETCH_USER_TOTAL_COUNT:
             return {...state, totalCount: action.payload}
         case FOLLOW_USER:
@@ -49,6 +52,7 @@ export const UserReducer = (state = initialState, action: TUserAction): IUserSta
             return {...state, loading: false, error: null, users: newUsers}
         case FILTER_USERS:
             return {...state, filter: {...state.filter, term: action.payload}}
-        default: return state
+        default:
+            return state
     }
 }

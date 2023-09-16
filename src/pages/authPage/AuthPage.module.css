@@ -1,10 +1,39 @@
-.form > div + div{
-    margin-top: 1em;
+.auth {
+    & h2 {
+        margin-top: 2.4em;
+    }
 }
-.btn{
-    margin-top: 2em;
+
+.form {
+    margin-top: 1.3em;
 }
-.checkbox{
+
+.form > div + div {
+    margin-top: .7em;
+}
+
+.btn {
+    margin-top: 1.2em;
+}
+
+.checkbox {
     width: 16px;
     height: 16px;
+}
+
+.rememberMeBlock {
+    margin-top: .5em !important;
+    display: flex;
+    align-items: center;
+    column-gap: .5em;
+
+    & input {
+        margin: 0;
+        padding: 0;
+        cursor: pointer;
+
+        &:focus {
+            box-shadow: none;
+        }
+    }
 }

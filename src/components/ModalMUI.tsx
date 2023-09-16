@@ -7,9 +7,8 @@ interface IModalMUI {
     closeModal: () => void
 }
 
-const ModalMui = (props: IModalMUI ) => {
+const ModalMui = (props: IModalMUI) => {
     const [open, setOpen] = React.useState(props.handleBtn);
-    const handleOpen = () => setOpen(true);
     const handleClose = () => {
         props.closeModal()
         setOpen(false)
@@ -22,14 +21,15 @@ const ModalMui = (props: IModalMUI ) => {
         width: 'auto',
         bgcolor: 'background.paper',
         boxShadow: 24,
-        p: 4,
+        borderRadius: 4,
+        p: ['25px 20px'],
     };
     return (
         <Modal open={open} onClose={handleClose}
-            aria-labelledby="modal-modal-title"
-            aria-describedby="modal-modal-description">
+               aria-labelledby="modal-modal-title"
+               aria-describedby="modal-modal-description">
             <Box sx={style}>
-                { props.children  }
+                {props.children}
             </Box>
         </Modal>
     );

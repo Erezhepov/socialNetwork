@@ -6,6 +6,7 @@ import {
     IAuthState,
     TActionAuth
 } from "../../types/auth";
+
 const initialState: IAuthState = {
     email: null,
     login: null,
@@ -19,7 +20,8 @@ const initialState: IAuthState = {
 export const AuthReducer = (state = initialState, action: TActionAuth): IAuthState => {
     switch (action.type) {
         case FETCH_AUTHED_SUCCESS:
-            return {...state, loading: false, error: null,
+            return {
+                ...state, loading: false, error: null,
                 isAuth: action.payload.isAuth,
                 userId: action.payload.userId,
                 message: action.payload.message,
@@ -32,6 +34,9 @@ export const AuthReducer = (state = initialState, action: TActionAuth): IAuthSta
             return {...state, loading: false, error: action.payload}
         case FETCH_AUTHED_DELETE:
             return {...state, isAuth: false, error: null, loading: false, userId: null, message: ''}
-        default: return state
+        // case FETCH_AUTHED_MESSAGE:
+        //     return {...state, isAuth: false, loading: false, error: null, message: action.payload}
+        default:
+            return state
     }
 }

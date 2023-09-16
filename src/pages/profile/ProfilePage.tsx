@@ -3,10 +3,10 @@ import s from './Profile.module.css'
 import {useDispatch} from "react-redux";
 import {profileAC} from "../../store/actionCreators/profileAC";
 import {useTypedSelector} from "../../hooks/useTypedSelector";
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
-import {useNavigate} from "react-router-dom";
 import {Dispatch} from "redux";
+import Loading from "../../components/Loading";
 
 const ProfilePage: React.FC = () => {
     const dispatch: Dispatch<any> = useDispatch()
@@ -15,10 +15,10 @@ const ProfilePage: React.FC = () => {
     const {userId} = useParams()
     const navigate = useNavigate()
     useEffect(() => {
-        if (authState.isAuth || authState.userId){
-            if (Number(userId)){
+        if (authState.isAuth || authState.userId) {
+            if (Number(userId)) {
                 dispatch(profileAC(Number(userId)))
-            }else{
+            } else {
                 dispatch(profileAC(Number(authState.userId)))
                 navigate('/profile/' + authState.userId)
             }
@@ -28,8 +28,8 @@ const ProfilePage: React.FC = () => {
 
     return (
         <div className={s.profilePage}>
-            {authState.loading && <div>Loading...</div>}
-            <ProfileInfo dispatch={dispatch} userId={userId} authId={authState.userId} state={state} />
+            {authState.loading && <Loading/>}
+            <ProfileInfo dispatch={dispatch} userId={userId} authId={authState.userId} state={state}/>
         </div>
     );
 };

@@ -1,16 +1,20 @@
-.nav{
+.nav {
     display: flex;
     flex-direction: column;
     row-gap: 12px;
     height: 80vh;
+
 }
-.nav a{
+
+.nav a {
     transition: opacity .2s;
     opacity: .8;
     color: #FFFFFF;
     text-decoration: none;
 }
-.nav a:hover{
+
+
+.nav a:hover {
     transition: opacity .2s;
     opacity: 1;
 }

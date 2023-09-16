@@ -1,0 +1,8 @@
+.pagination{
+    margin: 1em 0;
+    display: flex;
+    column-gap: .6em;
+}
+.btn{
+    padding: 8px 11px;
+}

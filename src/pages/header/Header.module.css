@@ -1,27 +1,31 @@
-.header{
+.header {
     padding: .4em 1em;
 }
-.header a{
+
+.header a {
     height: auto;
     color: #FFFFFF;
 }
-.container{
+
+.container {
     display: flex !important;
     justify-content: space-between;
     align-items: center;
 }
-.btn{
+
+.btn {
     background-color: #FFFFFF;
     color: #6A2C91;
     font-weight: 700;
     border: 1px solid #6A2C91;
 }
-.btn:hover{
-    background-color: #4B1E68;
-    color: #FFFFFF;
-    border: 1px solid #FFFFFF;
+
+.btn:hover {
+    background-color: #FFFFFF;
+    color: #6A2C91;
 }
-.successAuthedItem{
+
+.successAuthedItem {
     display: flex;
     column-gap: 1em;
     align-items: center;

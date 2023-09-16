@@ -25,6 +25,7 @@ interface IProfileAC {
     lookingForAJob: boolean
     lookingForAJobDescription: null | string
 }
+
 interface IUpdatePhoto extends IFetch {
     data: {
         photos: {
@@ -36,35 +37,31 @@ interface IUpdatePhoto extends IFetch {
 
 export const profileAC = (userId: number) => {
     return async (dispatch: Dispatch<TProfileAction | any>) => {
-        try{
+        try {
             dispatch({type: PROFILE_LOADING})
             const response = await instance.get(`profile/${userId}`)
             const data: IProfileAC = response.data
-            console.log(data)
             if (data) {
                 dispatch(profileDataAC(data))
                 dispatch(GetStatusAC(userId))
             }
-        }
-        catch (e){
+        } catch (e) {
             dispatch({type: PROFILE_ERROR, payload: 'Ошибка при получении profile данных'})
         }
     }
 }
 export const putProfileAC = (data: any) => {
-    debugger
     return async (dispatch: Dispatch<TProfileAction | any>, getState: any) => {
         const id = getState().auth.userId
-        try{
+        try {
             dispatch({type: PROFILE_LOADING})
             const response = await instance.put(`profile`, data)
             const responseData: IFetch = response.data
-            if (responseData.resultCode === ResultCodeEnum.success){
+            if (responseData.resultCode === ResultCodeEnum.success) {
                 dispatch({type: PUT_PROFILE_DATA})
                 dispatch(profileAC(id))
             }
-        }
-        catch (e){
+        } catch (e) {
             dispatch({type: PROFILE_ERROR, payload: 'Ошибка при получении profile данных'})
         }
     }
@@ -76,7 +73,7 @@ export const GetStatusAC = (userId: number) => {
             const response = await instance.get(`profile/status/${userId}`)
             const data: string = response.data
             if (data) dispatch({type: GET_STATUS, payload: data})
-        }catch (e){
+        } catch (e) {
             dispatch({type: PROFILE_ERROR, payload: 'Ошибка при получении profile статуса'})
         }
     }
@@ -87,15 +84,15 @@ export const PutStatusAC = (status: string) => {
             dispatch({type: PROFILE_LOADING})
             const response = await instance.put(`profile/status`, {status: status})
             const data: IFetch = response.data
-            if(data.resultCode === ResultCodeEnum.success) dispatch( {type: PUT_STATUS})
-        }catch (e){
+            if (data.resultCode === ResultCodeEnum.success) dispatch({type: PUT_STATUS})
+        } catch (e) {
             dispatch({type: PROFILE_ERROR, payload: 'Ошибка при получении profile статуса'})
         }
     }
 }
 export const updateProfilePhoto = (file: File) => {
     const fileData = new FormData()
-    fileData.append('image' ,file)
+    fileData.append('image', file)
     return async (dispatch: Dispatch<TProfileAction>) => {
         try {
             dispatch({type: PROFILE_LOADING})
@@ -104,14 +101,15 @@ export const updateProfilePhoto = (file: File) => {
             if (responseData.resultCode === ResultCodeEnum.success) {
                 dispatch({type: PUT_PROFILE_PHOTO, payload: responseData.data.photos})
             }
-        }catch (e){
+        } catch (e) {
             dispatch({type: PROFILE_ERROR, payload: 'Ошибка при загрузке фото'})
         }
     }
 }
 
 export const profileDataAC = (props: any): IProfileData => {
-    return {type: PROFILE_DATA, payload:
+    return {
+        type: PROFILE_DATA, payload:
             {
                 aboutMe: props.aboutMe, userId: props.userId,
                 fullName: props.fullName, photos: props.photos,
